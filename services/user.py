@@ -1,4 +1,7 @@
-from db.models import User
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 
 def create_user(username: str,
@@ -7,11 +10,11 @@ def create_user(username: str,
                 ) -> User:
     user = User.objects.create_user(
         username=username,
-        password=password)
-    user.email = email or ""
-    user.first_name = first_name or ""
-    user.last_name = last_name or ""
-    user.save()
+        password=password,
+        email=email or "",
+        first_name=first_name or "",
+        last_name=last_name or ""
+    )
     return user
 
 
@@ -20,12 +23,12 @@ def get_user(user_id: int) -> User:
 
 
 def update_user(
-    user_id: int,
-    username: str = None,
-    first_name: str = None,
-    last_name: str = None,
-    email: str = None,
-    password: str = None
+    user_id : int,
+    username: str | None = None,
+    first_name: str | None = None,
+    last_name: str | None = None,
+    email: str | None = None,
+    password: str | None = None
 ) -> User:
     user = User.objects.get(id=user_id)
     user.first_name = first_name if first_name is not None else ""
