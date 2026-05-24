@@ -8,7 +8,7 @@ from datetime import datetime
 @transaction.atomic
 def create_order(
         tickets: list, username: str,
-        date: str | None) -> Order:
+        date: str | None = None) -> Order:
     user = User.objects.get(username=username)
     if date:
         created_at = datetime.strptime(date, "%Y-%m-%d %H:%M")
@@ -25,7 +25,7 @@ def create_order(
     return order
 
 
-def get_orders(username: str | None) -> QuerySet:
+def get_orders(username: str | None = None) -> QuerySet:
     queryset = Order.objects.all()
     if username:
         queryset = queryset.filter(user__username=username)

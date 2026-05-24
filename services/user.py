@@ -21,11 +21,11 @@ def get_user(user_id: int) -> User:
 
 def update_user(
     user_id: int,
-    username: str | None,
-    first_name: str | None,
-    last_name: str | None,
-    email: str | None,
-    password: str | None
+    username: str = None,
+    first_name: str = None,
+    last_name: str = None,
+    email: str = None,
+    password: str = None
 ) -> User:
     user = User.objects.get(id=user_id)
     user.first_name = first_name if first_name is not None else ""
